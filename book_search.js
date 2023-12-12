@@ -22,11 +22,25 @@
     /** You will need to implement your search and 
      * return the appropriate object here. */
     
-    let i = 0
-    let text = scannedTextObj[0].Content;
+    // Developed with help from w3schools JavaScript tutorial website (https://www.w3schools.com/js/default.asp) and various StackOverflow pages (cited when used)
+
+    // Get all the text lines from the scannedTextObj
+    let i = 0;
+    let j = 0;
+    let text = [];
+    let line = "";
     for (book in scannedTextObj){
         text = scannedTextObj[i].Content;
         console.log(text);
+        j = 0;
+        for (element in text){
+            line = text[element].Text;
+            // Test string.includes(substring) function - found here https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript 
+            console.log("Line: ", line, " includes ", searchTerm, " ", line.includes(searchTerm));
+            j++;
+        }
+        
+        i++;
     }
 
 
@@ -177,3 +191,9 @@ if (JSON.stringify(twentyLeaguesOutDarkness) === JSON.stringify(test3result)) {
     console.log("Expected:", twentyLeaguesOutDarkness);
     console.log("Received:", test3result);
 }
+
+//** We could test what happens when an empty input object is given. */
+//const test4result = findSearchTermInBooks("test", emptyIn);
+
+//** We could test what happens when an input object with multiple books is given. */
+const test5result = findSearchTermInBooks("test", multipleIn);
