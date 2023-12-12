@@ -38,7 +38,7 @@
     let isbn = "";
     let page = 0;
     let lineNum = 0;
-    //let results = {ISBN:"", Page:0, Line:0};
+    let results = {ISBN:"", Page:0, Line:0};
     for (book in scannedTextObj){
         //console.log("Book:", scannedTextObj[i]);
         text = scannedTextObj[i].Content;
@@ -55,7 +55,12 @@
                 isbn = scannedTextObj[i].ISBN;
                 page = text[j].Page;
                 lineNum = text[j].Line;
-                result.Results.push([isbn,page,lineNum])    
+                results.ISBN = isbn;
+                results.Page = page;
+                results.Line = lineNum;
+                
+                // Really dislike the naming here - if I had more time I would change it so it doesn't rely so heavily on capitalization for all the variables
+                result.Results.push(results);    
             }
 
             j++;
@@ -157,6 +162,19 @@ const twentyLeaguesOut = {
     ]
 }
 
+/** Example output object for "The" search */
+const twentyLeaguesOutThe = {
+    "SearchTerm": "The",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 8
+        }
+    ]
+}
+
+
 /** Example output object for hyphenated word testing */
 const twentyLeaguesOutDarkness = {
     "SearchTerm": "darkness",
@@ -169,9 +187,15 @@ const twentyLeaguesOutDarkness = {
     ]
 }
 
-/** Example output object for empty input testing */
-const emptyOut = {
+/** Example output objects for empty input testing */
+const emptyOut1 = {
     "SearchTerm": "test",
+    "Results": [
+    ]
+}
+
+const emptyOut2 = {
+    "SearchTerm": "OWN",
     "Results": [
     ]
 }
@@ -241,11 +265,11 @@ if (JSON.stringify(twentyLeaguesOutDarkness) === JSON.stringify(test3result)) {
 
 //** We could test what happens when an empty input object is given. */
 const test4result = findSearchTermInBooks("test", emptyIn);
-if (JSON.stringify(emptyOut) === JSON.stringify(test4result)){
+if (JSON.stringify(emptyOut1) === JSON.stringify(test4result)){
     console.log("PASS: Test 4");
 } else {
     console.log("FAIL: Test 4");
-    console.log("Expected:", emptyOut);
+    console.log("Expected:", emptyOut1);
     console.log("Received:", test4result);
 }
 
@@ -257,4 +281,34 @@ if (JSON.stringify(multipleOut) === JSON.stringify(test5result)){
     console.log("FAIL: Test 5");
     console.log("Expected:", multipleOut);
     console.log("Received:", test5result);
+}
+
+//** We could test what happens when there should be no matches */
+const test6result = findSearchTermInBooks("test", twentyLeaguesIn);
+if (JSON.stringify(emptyOut1) === JSON.stringify(test6result)){
+    console.log("PASS: Test 6");
+} else {
+    console.log("FAIL: Test 6");
+    console.log("Expected:", emptyOut1);
+    console.log("Received:", test6result);
+}
+
+//** We could test case sensitivity */
+const test7result = findSearchTermInBooks("The", twentyLeaguesIn);
+if (JSON.stringify(twentyLeaguesOutThe) === JSON.stringify(test7result)){
+    console.log("PASS: Test 7");
+} else {
+    console.log("FAIL: Test 7");
+    console.log("Expected:", twentyLeaguesOutThe);
+    console.log("Received:", test7result);
+}
+
+//** We could test case sensitivity (negative case) */
+const test8result = findSearchTermInBooks("OWN", twentyLeaguesIn);
+if (JSON.stringify(emptyOut2) === JSON.stringify(test8result)){
+    console.log("PASS: Test 8");
+} else {
+    console.log("FAIL: Test 8");
+    console.log("Expected:", emptyOut2);
+    console.log("Received:", test8result);
 }
