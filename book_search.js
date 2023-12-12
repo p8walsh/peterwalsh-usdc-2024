@@ -21,6 +21,14 @@
  function findSearchTermInBooks(searchTerm, scannedTextObj) {
     /** You will need to implement your search and 
      * return the appropriate object here. */
+    
+    let i = 0
+    let text = scannedTextObj[0].Content;
+    for (book in scannedTextObj){
+        text = scannedTextObj[i].Content;
+        console.log(text);
+    }
+
 
     var result = {
         "SearchTerm": "",
@@ -54,7 +62,53 @@ const twentyLeaguesIn = [
         ] 
     }
 ]
+
+/** Test empty input object. */
+const emptyIn = [
+
+]
     
+/** Test Input object with multiple books */
+const multipleIn = [
+    {
+        "Title": "Twenty Thousand Leagues Under the Sea",
+        "ISBN": "9780000528531",
+        "Content": [
+            {
+                "Page": 31,
+                "Line": 8,
+                "Text": "now simply went on by her own momentum.  The dark-"
+            },
+            {
+                "Page": 31,
+                "Line": 9,
+                "Text": "ness was then profound; and however good the Canadian\'s"
+            },
+            {
+                "Page": 31,
+                "Line": 10,
+                "Text": "eyes were, I asked myself how he had managed to see, and"
+            } 
+        ]
+    },
+    {
+        "Title": "Test Book",
+        "ISBN": "1234",
+        "Content": [
+            {
+                "Page": 1,
+                "Line": 2,
+                "Text": "test test test test test test"
+            },
+            {
+                "Page": 3,
+                "Line": 4,
+                "Text": "ing ing ing ing ing ing ing"
+            }
+        ]
+    }
+]
+
 /** Example output object */
 const twentyLeaguesOut = {
     "SearchTerm": "the",
