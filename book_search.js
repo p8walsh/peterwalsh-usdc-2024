@@ -102,3 +102,13 @@ if (test2result.Results.length == 1) {
     console.log("Expected:", twentyLeaguesOut.Results.length);
     console.log("Received:", test2result.Results.length);
 }
+
+/** We could choose to check if hyphenated words are detected. */
+const test3result = findSearchTermInBooks("darkness", twentyLeaguesIn);
+if (JSON.stringify(twentyLeaguesOutDarkness) === JSON.stringify(test3result)) {
+    console.log("PASS: Test 3");
+} else {
+    console.log("FAIL: Test 3");
+    console.log("Expected:", twentyLeaguesOutDarkness);
+    console.log("Received:", test3result);
+}
