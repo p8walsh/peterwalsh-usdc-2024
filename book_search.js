@@ -24,23 +24,38 @@
     
     // Developed with help from w3schools JavaScript tutorial website (https://www.w3schools.com/js/default.asp) and various StackOverflow pages (cited when used)
 
+    var result = {
+        "SearchTerm": "",
+        "Results": []
+    };
+    
+
     // Get all the text lines from the scannedTextObj
     let i = 0;
     let j = 0;
     let text = [];
     let line = "";
-    let results = [];
+    let isbn = "";
+    let page = 0;
+    let lineNum = 0;
+    //let results = {ISBN:"", Page:0, Line:0};
     for (book in scannedTextObj){
+        //console.log("Book:", scannedTextObj[i]);
         text = scannedTextObj[i].Content;
 
         j = 0;
         for (element in text){
-            line = text[element].Text;
+            line = text[j].Text;
             // Test string.includes(substring) function - found here https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript 
             //console.log("Line: ", line, " includes ", searchTerm, " ", line.includes(searchTerm));
 
-            if (line.includes(searchTerm)){
+            //console.log(text[j])
 
+            if (line.includes(searchTerm)){
+                isbn = scannedTextObj[i].ISBN;
+                page = text[j].Page;
+                lineNum = text[j].Line;
+                result.Results.push([isbn,page,lineNum])    
             }
 
             j++;
@@ -49,12 +64,6 @@
         i++;
     }
 
-
-    var result = {
-        "SearchTerm": "",
-        "Results": []
-    };
-    
     result.SearchTerm = searchTerm;
 
     return result; 
@@ -172,9 +181,14 @@ const multipleOut = {
     "SearchTerm": "test",
     "Results": [
         {
-            "ISBN": "9780000528531",
-            "Page": 31,
-            "Line": 8
+            "ISBN": "1234",
+            "Page": 1,
+            "Line": 2
+        },
+        {
+            "ISBN": "1234",
+            "Page": 3,
+            "Line": 4
         }
     ]
 }
