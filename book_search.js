@@ -29,14 +29,20 @@
     let j = 0;
     let text = [];
     let line = "";
+    let results = [];
     for (book in scannedTextObj){
         text = scannedTextObj[i].Content;
-        console.log(text);
+
         j = 0;
         for (element in text){
             line = text[element].Text;
             // Test string.includes(substring) function - found here https://stackoverflow.com/questions/1789945/how-to-check-whether-a-string-contains-a-substring-in-javascript 
-            console.log("Line: ", line, " includes ", searchTerm, " ", line.includes(searchTerm));
+            //console.log("Line: ", line, " includes ", searchTerm, " ", line.includes(searchTerm));
+
+            if (line.includes(searchTerm)){
+
+            }
+
             j++;
         }
         
@@ -49,6 +55,8 @@
         "Results": []
     };
     
+    result.SearchTerm = searchTerm;
+
     return result; 
 }
 
@@ -117,6 +125,11 @@ const multipleIn = [
             {
                 "Page": 3,
                 "Line": 4,
+                "Text": "test test test test test test"
+            },
+            {
+                "Page": 5,
+                "Line": 6,
                 "Text": "ing ing ing ing ing ing ing"
             }
         ]
@@ -146,6 +159,26 @@ const twentyLeaguesOutDarkness = {
         }
     ]
 }
+
+/** Example output object for empty input testing */
+const emptyOut = {
+    "SearchTerm": "test",
+    "Results": [
+    ]
+}
+
+/** Example output object for multiple input testing */
+const multipleOut = {
+    "SearchTerm": "test",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 8
+        }
+    ]
+}
+
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
 | | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___| 
@@ -193,7 +226,21 @@ if (JSON.stringify(twentyLeaguesOutDarkness) === JSON.stringify(test3result)) {
 }
 
 //** We could test what happens when an empty input object is given. */
-//const test4result = findSearchTermInBooks("test", emptyIn);
+const test4result = findSearchTermInBooks("test", emptyIn);
+if (JSON.stringify(emptyOut) === JSON.stringify(test4result)){
+    console.log("PASS: Test 4");
+} else {
+    console.log("FAIL: Test 4");
+    console.log("Expected:", emptyOut);
+    console.log("Received:", test4result);
+}
 
 //** We could test what happens when an input object with multiple books is given. */
 const test5result = findSearchTermInBooks("test", multipleIn);
+if (JSON.stringify(multipleOut) === JSON.stringify(test5result)){
+    console.log("PASS: Test 5");
+} else {
+    console.log("FAIL: Test 5");
+    console.log("Expected:", multipleOut);
+    console.log("Received:", test5result);
+}
