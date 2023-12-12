@@ -67,6 +67,17 @@ const twentyLeaguesOut = {
     ]
 }
 
+/** Example output object for hyphenated word testing */
+const twentyLeaguesOutDarkness = {
+    "SearchTerm": "darkness",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 8
+        }
+    ]
+}
 /*
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
 | | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___| 
